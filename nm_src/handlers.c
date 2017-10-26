@@ -27,16 +27,16 @@ char        get_type(t_nm_basic *object)
         if (object->sect == 10)
             return ('b');
     }
-    if (type.n_type == 8 && type.n_pext == 0 && type.n_stab == 96)
+    if (type.n_pext == 0 && type.n_stab == 96)
     {
-        if (type.n_ext == 0)
+        if ((type.n_ext == 0 && type.n_type == 8) || (type.n_ext == 1 && type.n_type == 4))
             return ('T');
         else
             return ('\0');
     }
     if (type.n_ext == 0 && type.n_type == 0 && type.n_pext == 0 && type.n_stab == 0)
     {
-        if (object->desc == 256)
+        if (object->desc >= 256)
             return ('U');
         else
             return ('\0');
