@@ -15,7 +15,15 @@ int				comp_alpha(void *p1, void *p2, int reverse)
 	free(tmp1);
 	free(tmp2);
 	if (reverse)
+	{
+		if (result == 0)
+			return (f1->value > f2->value ? 1 : 0);
 		return (result < 0 ? 1 : 0);
+	}
 	else
+	{
+		if (result == 0)
+			return (f1->value > f2->value ? 1 : 0);
 		return (result > 0 ? 1 : 0);
+	}
 }

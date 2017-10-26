@@ -7,7 +7,8 @@ void            ft_nm(char *ptr)
     mag_no = *(int *)ptr;
     if (mag_no == MH_MAGIC_64)
         handle_64(ptr);
-    // else if (mag_no == )
+    else
+        ft_printf("Magic Number currently not handled\n");
 }
 
 int             main(int ac, char **ag)
