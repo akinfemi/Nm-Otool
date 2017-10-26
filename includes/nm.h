@@ -18,7 +18,8 @@
 //     int         munmap_error : 1;
 // }               t_error;
 
-typedef struct      s_type{
+typedef struct      s_type
+{
     unsigned int    n_stab;
     unsigned int    n_pext;
     unsigned int    n_type;
@@ -30,6 +31,8 @@ typedef struct          s_nm_basic
     unsigned long long  value;
     t_type              type;
     char                *name;
+    short               desc;
+    unsigned char       sect;
 }                       t_nm_basic;
 
 void            handle_64(char *ptr);

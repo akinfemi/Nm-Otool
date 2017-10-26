@@ -1,6 +1,6 @@
-    #include "../includes/nm.h"
+#include "../includes/nm.h"
 #include <stdio.h>
-
+/*
 void printBits(unsigned int num){
     // unsigned int size = sizeof(unsigned int);
     unsigned int maxPow = 1<<(8-1);
@@ -13,20 +13,57 @@ void printBits(unsigned int num){
     }
     printf("\n");
 }
+*/
+
+char        get_type(t_nm_basic *object)
+{
+    // printf("Ext: %d Type: %d Pext: %d Stab: %d", type.n_ext, type.n_type, type.n_pext, type.n_stab);
+    t_type      type;
+
+    type = object->type;
+    if (type.n_ext == 1 && type.n_type == 14 && type.n_pext == 16 && type.n_stab == 64 && object->sect != 3)
+        return ('t');
+    if (type.n_type == 8 && type.n_pext == 0 && type.n_stab == 96)
+    {
+        if (type.n_ext == 0)
+            return ('T');
+        else
+            return ('\0');
+    }
+    if (type.n_ext == 0 && type.n_type == 0 && type.n_pext == 0 && type.n_stab == 0)
+    {
+        if (object->desc == 256)
+            return ('U');
+        else
+            return ('\0');
+    }
+    return ('\0');
+}
 
 void        print_list(t_list *list)
 {
     t_nm_basic      *objects;
+    char            tp;
 
     if (!list)
         return ;
     while (list)
     {
         objects = (t_nm_basic *) list->content;
-        if (objects->value != 0)
-            ft_printf("%016llx %c %s\n", objects->value, 't', objects->name); //get_type(objects->type)
-        else
-            ft_printf("%16s %c %s\n", "", 't', objects->name); //get_type(objects->type)
+        tp = get_type(objects);
+        if (ft_strlen(objects->name) > 0 && tp != '\0')
+        {
+            if (objects->value != 0)
+            {
+                // printf("Desc: %hd Sect: %d Ext: %d Type: %d Pext: %d Stab: %d Name: %s\n",  objects->desc, objects->sect, objects->type.n_ext, objects->type.n_type, objects->type.n_pext, objects->type.n_stab, objects->name);
+                ft_printf("%016llx %c %s\n", objects->value, tp , objects->name); //get_type(objects->type)
+            }
+            else
+            {
+                // printf("Desc: %hd Sect: %d Ext: %d Type: %d Pext: %d Stab: %d Name: %s\n", objects->desc, objects->sect, objects->type.n_ext, objects->type.n_type, objects->type.n_pext, objects->type.n_stab,  objects->name);
+                ft_printf("%16s %c %s\n", "", tp, objects->name); //get_type(objects->type)
+            }
+        }
         list = list->next;
     }
 }
@@ -57,8 +94,9 @@ void        build_list(int nsyms, int symoff, int stroff, char *ptr)
         object = (t_nm_basic *)malloc(sizeof(t_nm_basic));
         object->name = ft_strdup(s_table + arr[i].n_un.n_strx);
         object->value = arr[i].n_value;
+        object->sect = arr[i].n_sect;
+        object->desc = arr[i].n_desc;
         set_type(s_table + arr[i].n_type, &object->type);
-        // ft_printf("%016llx %c %s\n", object->value, 't', object->name);
         ft_lstadd(&objects, ft_lstnew(object, sizeof(t_nm_basic)));
         i++;
     }
