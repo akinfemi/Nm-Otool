@@ -16,7 +16,8 @@ void		ft_lstappend(t_list **alst, t_list *new)
 {
 	t_list	*tmp;
 
-	tmp = NULL;
+	if(!alst || !new)
+		return ;
 	if (!*alst)
 		*alst = new;
 	else

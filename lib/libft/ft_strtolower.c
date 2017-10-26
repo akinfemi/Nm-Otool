@@ -16,15 +16,13 @@ char	*ft_strtolower(char *str)
 {
 	int		len;
 	int		i;
-	char	*res;
 
 	if (!str)
 		return (0);
 	i = -1;
 	len = ft_strlen(str);
-	res = (char *)ft_memalloc(sizeof(char) * len + 1);
 	while (++i < len)
-		res[i] = ft_tolower(str[i]);
-	res[len] = '\0';
-	return (res);
+		str[i] = ft_tolower(str[i]);
+	str[len] = '\0';
+	return (str);
 }

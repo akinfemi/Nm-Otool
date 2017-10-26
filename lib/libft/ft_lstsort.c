@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstsort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aakin-al <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,23 +12,38 @@
 
 #include "libft.h"
 
-t_list		*ft_lstnew(void const *content, size_t content_size)
+static void		lst_swap_contents(t_list *p1, t_list *p2)
 {
-	t_list	*new;
+	void		*tmp;
 
-	new = (t_list *)malloc(sizeof(t_list));
-	if (new == NULL)
-		return (0);
-	if (content == NULL)
-	{
-		new->content = NULL;
-		new->content_size = 0;
-	}
-	else
-	{
-		new->content = (void *)content;
-		new->content_size = content_size;
-	}
-	new->next = NULL;
-	return (new);
+	tmp = p1->content;
+	p1->content = p2->content;
+	p2->content = tmp;
+}
+
+void			ft_lstsort(t_list *start, int (*f)(void *, void *, int), int reverse_cmp)
+{
+    int			swapped;
+    t_list		*left;
+    t_list		*right;
+
+    right = NULL;
+    if (start == NULL)
+        return ;
+    swapped = 1;
+    while (swapped)
+    {
+        swapped = 0;
+        left = start;
+        while (left->next != right)
+        {
+            if (f(left->content, left->next->content, reverse_cmp))
+            {
+                lst_swap_contents(left, left->next);
+                swapped = 1;
+            }
+            left = left->next;
+        }
+        right = left;
+    }
 }

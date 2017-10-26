@@ -106,4 +106,5 @@ size_t					ft_abs(int num);
 int					ft_isnum(char *num);
 intmax_t				ft_atomax(const char *nptr);
 int					ft_sqrt(size_t num);
+void				ft_lstsort(t_list *start, int (*f)(void *, void *, int), int reverse_cmp);
 #endif

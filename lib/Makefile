@@ -89,7 +89,8 @@ LIBFT =		btree_add_node.c\
             ft_bin_to_dec.c \
             ft_pow.c \
 		ft_abs.c \
-		ft_isnum.c
+		ft_isnum.c \
+        ft_lstsort.c
             
 FT_PRINTF = ft_build.c\
             ft_is.c\
