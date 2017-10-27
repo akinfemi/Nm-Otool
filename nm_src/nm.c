@@ -15,10 +15,11 @@ void            ft_nm(char *ptr)
     }
     else if (mag_no == FAT_CIGAM)
     {
-        // handle_fat32(ptr);
+        handle_fat32(ptr);
+        // print_fat_header(ptr);
     }
     else{
-        ft_printf("Magic Number %d currently not handled.\n", mag_no);
+        ft_printf("Magic Number %d currently not handled. %d\n", mag_no, MH_MAGIC);
     }
 }
 

@@ -1,4 +1,5 @@
 #include "../includes/nm.h"
+
 int				comp_alpha(void *p1, void *p2, int reverse)
 {
 	int		result;
