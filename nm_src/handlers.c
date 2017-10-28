@@ -41,15 +41,21 @@ void        handle_32(char *ptr)
     lc = (void *)ptr + sizeof(*header);
     while (i < ncmds)
     {
-        if (lc->cmd == LC_SYMTAB)
+        // if (lc->cmd == LC_SYMTAB)
+        // {
+        //     sym = (struct symtab_command *)lc;
+        //     build_list_32(sym->nsyms, sym->symoff, sym->stroff, ptr);
+        //     break;
+        // }
+        // lc = (void *) lc + lc->cmdsize;
+        if (header[i].cputype == CPU_TYPE_I386)
         {
-            sym = (struct symtab_command *)lc;
-            build_list_32(sym->nsyms, sym->symoff, sym->stroff, ptr);
+            offset = header[i].offset;
             break;
         }
-        lc = (void *) lc + lc->cmdsize;
         i++;
     }
+    ft_nm(ptr + offset);
 }
 
 void        handle_fat32(char *ptr)
