@@ -1,5 +1,5 @@
 #include "../includes/nm.h"
-#include <stdio.h>
+
 /*
 void printBits(unsigned int num){
     // unsigned int size = sizeof(unsigned int);
@@ -79,14 +79,12 @@ void        print_list_32(t_list *list)
     {
         objects = (t_nm_basic *) list->content;
         tp = get_type(objects);
-        // printf("Sect: %d\n", objects->sect);
-        // printf("Desc: %hd Sect: %d Ext: %d Type: %d Pext: %d Stab: %d Name: %s\n",  objects->desc, objects->sect, objects->type.n_ext, objects->type.n_type, objects->type.n_pext, objects->type.n_stab, objects->name);
         if (ft_strlen(objects->name) > 0 && tp != '\0')
         {
             if (objects->value != 0)
-                ft_printf("%0llx %c %s\n", objects->value, tp , objects->name);//, objects->sect
+                ft_printf("%08llx %c %s\n", objects->value, tp , objects->name);
             else
-                ft_printf("%8s %c %s\n", "", tp, objects->name); //, objects->sect
+                ft_printf("%8s %c %s\n", "", tp, objects->name);
         }
         list = list->next;
     }
@@ -131,7 +129,7 @@ void        build_list(int nsyms, int symoff, int stroff, char *ptr)
 void        build_list_32(int nsyms, int symoff, int stroff, char *ptr)
 {
     int                 i;
-    struct nlist_64     *arr;
+    struct nlist        *arr;
     char                *s_table;
     t_list              *objects;
     t_nm_basic          *object;
