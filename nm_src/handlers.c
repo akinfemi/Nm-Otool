@@ -74,5 +74,5 @@ void        handle_fat32(char *ptr)
         }
         i++;
     }
-    ft_nm(ptr + SWAP32(offset));
+    ft_nm(ptr + SWAP32(offset), "\0");
 }

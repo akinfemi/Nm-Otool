@@ -29,7 +29,8 @@ typedef struct          s_nm_basic
     unsigned char       sect;
 }                       t_nm_basic;
 
-void                    ft_nm(char *ptr);
+// void                    ft_nm(char *ptr);
+void                    ft_nm(char *ptr, char *name);
 void                    handle_64(char *ptr);
 int				        comp_alpha(void *p1, void *p2, int reverse);
 void                    handle_fat32(char *ptr);

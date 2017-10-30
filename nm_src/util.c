@@ -1,5 +1,5 @@
 #include "../includes/nm.h"
-
+#include <stdio.h>
 /*
 void printBits(unsigned int num){
     // unsigned int size = sizeof(unsigned int);
@@ -30,16 +30,16 @@ char        get_type(t_nm_basic *object)
     if (type.n_pext == 0 && type.n_stab == 96)
     {
         if ((type.n_ext == 0 && type.n_type == 8) || (type.n_ext == 1 && type.n_type == 4))
+        {
+            if (object->sect == 9)
+                return ('D');
             return ('T');
-        else
-            return ('\0');
+        }
     }
     if (type.n_ext == 0 && type.n_type == 0 && type.n_pext == 0 && type.n_stab == 0)
     {
         if (object->desc >= 256)
             return ('U');
-        else
-            return ('\0');
     }
     return ('\0');
 }
@@ -79,6 +79,7 @@ void        print_list_32(t_list *list)
     {
         objects = (t_nm_basic *) list->content;
         tp = get_type(objects);
+        // printf("Desc: %hd Sect: %d Ext: %d Type: %d Pext: %d Stab: %d Name: %s\n",  objects->desc, objects->sect, objects->type.n_ext, objects->type.n_type, objects->type.n_pext, objects->type.n_stab, objects->name);
         if (ft_strlen(objects->name) > 0 && tp != '\0')
         {
             if (objects->value != 0)
