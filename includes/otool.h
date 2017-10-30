@@ -14,6 +14,7 @@
 
 
 void            otool_64(char *ptr);
+void            otool_32(char *ptr);
 char            *ft_itoa_base_trim(uintmax_t val, int base, int trim);
 
 #endif
