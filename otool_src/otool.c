@@ -13,10 +13,10 @@ void            ft_otool(char *ptr)
     {
         otool_32(ptr);
     }
-    // else if (mag_no == FAT_CIGAM)
-    // {
-    //     otool_fat32(ptr);
-    // }
+    else if (mag_no == FAT_CIGAM)
+    {
+        otool_fat32(ptr);
+    }
     else {
         ft_printf("Magic Number %d currently not handled.\n", mag_no);
     }
