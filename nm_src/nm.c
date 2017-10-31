@@ -57,7 +57,7 @@ int             main(int ac, char **ag)
             return (EXIT_FAILURE);
         }
         // ft_nm(ptr);
-        ft_nm(ptr, ag[i]);
+        ft_nm(ptr, ac > 2 ? ag[i]: "\0");
         if (munmap(ptr, buf.st_size) < 0)
         {
             ft_putstr_fd("munmap error\n", 2);

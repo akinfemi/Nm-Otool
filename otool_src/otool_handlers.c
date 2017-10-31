@@ -162,3 +162,8 @@ void        otool_fat32(char *ptr)
     }
     ft_otool(ptr + SWAP32(offset));
 }
+
+void        otool_archive()
+{
+
+}
