@@ -17,8 +17,8 @@
 typedef struct          s_offset
 {
     char                *name;
-    off_t               offset;
-    off_t               ran_strx;
+    uint32_t            offset;
+    uint32_t            ran_strx;
 }                       t_offset;
 
 typedef struct          s_type
@@ -36,21 +36,22 @@ typedef struct          s_nm_basic
     char                *name;
     short               desc;
     unsigned char       sect;
+    int                 obj_f;
 }                       t_nm_basic;
 
 void                    ft_nm(char *ptr, char *name, int args);
-void                    handle_64(char *ptr);
+void                    handle_64(char *ptr, int o);
 int				        comp_alpha(void *p1, void *p2, int reverse);
 void                    handle_fat32(char *ptr);
-void                    print_list(t_list *list);
+void                    print_list(t_list *list, int obj);
 char                    get_type(t_nm_basic *object);
-void                    build_list(int nsyms, int symoff, int stroff, char *ptr);
+void                    build_list(struct symtab_command *s, char *ptr, int obj);
 void                    set_type(char *n_type, t_type *type);
-void                    handle_32(char *ptr);
-void                    print_list_32(t_list *list);
-void                    build_list_32(int nsyms, int symoff, int stroff, char *ptr);
+void                    handle_32(char *ptr,int o);
+void                    print_list_32(t_list *list, int o);
+void                    build_list_32(struct symtab_command *s, char *ptr, int obj);
 void                    handle_lib(char *ptr, char *name);
 t_offset                *new_off_t_node(struct ranlib ran, char *name);
 t_list                  *make_list(struct ranlib ran, char *name);
-void                    parse_list(t_list *ar_list, char *ptr);
+void                    parse_list(t_list *ar_list, char *ptr, char *lib_name);
 #endif

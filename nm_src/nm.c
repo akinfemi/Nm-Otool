@@ -9,13 +9,13 @@ void            ft_nm(char *ptr, char *name, int args)
     {
         if (args > 1)
             ft_printf("\n%s:\n", name);
-        handle_64(ptr);
+        handle_64(ptr, (ft_strstr(name, ".o") ? 1 : 0));
     }
     else if (mag_no == MH_MAGIC)
     {
         if (args > 1)
             ft_printf("\n%s:\n", name);
-        handle_32(ptr);
+        handle_32(ptr, (ft_strstr(name, ".o") ? 1 : 0));
     }
     else if (mag_no == FAT_CIGAM)
     {

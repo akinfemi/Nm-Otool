@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 
-void        handle_64(char *ptr)
+void        handle_64(char *ptr, int obj)
 {
     int                     ncmds;
     struct mach_header_64   *header;
@@ -19,7 +19,7 @@ void        handle_64(char *ptr)
         if (lc->cmd == LC_SYMTAB)
         {
             sym = (struct symtab_command *)lc;
-            build_list (sym->nsyms, sym->symoff, sym->stroff, ptr);
+            build_list (sym, ptr, obj);
             break;
         }
         lc = (void *) lc + lc->cmdsize;
@@ -27,7 +27,7 @@ void        handle_64(char *ptr)
     }
 }
 
-void        handle_32(char *ptr)
+void        handle_32(char *ptr, int obj)
 {
     int                     ncmds;
     struct mach_header      *header;
@@ -44,7 +44,7 @@ void        handle_32(char *ptr)
         if (lc->cmd == LC_SYMTAB)
         {
             sym = (struct symtab_command *)lc;
-            build_list_32(sym->nsyms, sym->symoff, sym->stroff, ptr);
+            build_list_32(sym, ptr, obj);
             break;
         }
         lc = (void *) lc + lc->cmdsize;
@@ -98,5 +98,5 @@ void        handle_lib(char *ptr, char *lib_name)
         ft_lstadd(&ar_list, make_list(ran[i], lib_name));
         i++;
     }
-    parse_list(ar_list, ptr);
+    parse_list(ar_list, ptr, lib_name);
 }

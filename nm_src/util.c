@@ -15,6 +15,31 @@ void printBits(unsigned int num){
 }
 */
 
+char        get_type_o(t_nm_basic *object)
+{
+    t_type      type;
+
+    type = object->type;
+    if (type.n_ext == 1 && type.n_type == 14 && type.n_pext == 16 && type.n_stab == 64)
+    {
+        if (object->sect == 0)
+            return ('U');
+        if (object->sect == 1 && object->value != 0)
+            return ('t');
+        if (object->value == 0)
+            return ('T');
+    }
+    if (type.n_stab == 96 )
+    {
+        if (type.n_type == 12 || type.n_type == 4)
+        {
+            return ('t');
+        }
+        return ('T');
+    }
+    return ('\0');
+}
+
 char        get_type(t_nm_basic *object)
 {
     t_type      type;
@@ -44,7 +69,7 @@ char        get_type(t_nm_basic *object)
     return ('\0');
 }
 
-void        print_list(t_list *list)
+void        print_list(t_list *list, int obj)
 {
     t_nm_basic      *objects;
     char            tp;
@@ -54,12 +79,15 @@ void        print_list(t_list *list)
     while (list)
     {
         objects = (t_nm_basic *) list->content;
-        tp = get_type(objects);
+        if (obj)
+            tp = get_type_o(objects);
+        else
+            tp = get_type(objects);
         // printf("Sect: %d\n", objects->sect);
-        // printf("Desc: %hd Sect: %d Ext: %d Type: %d Pext: %d Stab: %d Name: %s\n",  objects->desc, objects->sect, objects->type.n_ext, objects->type.n_type, objects->type.n_pext, objects->type.n_stab, objects->name);
+        // ft_printf("Desc: %hd Sect: %d Ext: %d Type: %d Pext: %d Stab: %d Name: %s\n",  objects->desc, objects->sect, objects->type.n_ext, objects->type.n_type, objects->type.n_pext, objects->type.n_stab, objects->name);
         if (ft_strlen(objects->name) > 0 && tp != '\0')
         {
-            if (objects->value != 0)
+            if (tp != 'U')
                 ft_printf("%016llx %c %s\n", objects->value, tp , objects->name);//, objects->sect
             else
                 ft_printf("%16s %c %s\n", "", tp, objects->name); //, objects->sect
@@ -68,7 +96,7 @@ void        print_list(t_list *list)
     }
 }
 
-void        print_list_32(t_list *list)
+void        print_list_32(t_list *list, int obj)
 {
     t_nm_basic      *objects;
     char            tp;
@@ -78,8 +106,11 @@ void        print_list_32(t_list *list)
     while (list)
     {
         objects = (t_nm_basic *) list->content;
-        tp = get_type(objects);
-        // printf("Desc: %hd Sect: %d Ext: %d Type: %d Pext: %d Stab: %d Name: %s\n",  objects->desc, objects->sect, objects->type.n_ext, objects->type.n_type, objects->type.n_pext, objects->type.n_stab, objects->name);
+        if (obj)
+            tp = get_type_o(objects);
+        else
+            tp = get_type(objects);
+        // ft_printf("Desc: %hd Sect: %d Ext: %d Type: %d Pext: %d Stab: %d Name: %s\n",  objects->desc, objects->sect, objects->type.n_ext, objects->type.n_type, objects->type.n_pext, objects->type.n_stab, objects->name);
         if (ft_strlen(objects->name) > 0 && tp != '\0')
         {
             if (objects->value != 0)
@@ -99,20 +130,19 @@ void        set_type(char *n_type, t_type *type)
     type->n_stab = 0xe0 & *n_type;
 }
 
-void        build_list(int nsyms, int symoff, int stroff, char *ptr)
+void        build_list(struct symtab_command *sym, char *ptr, int obj)
 {
-    int                 i;
+    uint32_t            i;
     struct nlist_64     *arr;
     char                *s_table;
     t_list              *objects;
     t_nm_basic          *object;
 
     i = 0;
-    s_table = (void *)ptr + stroff;
-    arr = (void *)ptr + symoff;
-    objects = (t_list *)malloc(sizeof(t_list));
+    s_table = (void *)ptr + sym->stroff;
+    arr = (void *)ptr + sym->symoff;
     objects = NULL;
-    while (i < nsyms)
+    while (i < sym->nsyms)
     {
         object = (t_nm_basic *)malloc(sizeof(t_nm_basic));
         object->name = ft_strdup(s_table + arr[i].n_un.n_strx);
@@ -124,23 +154,23 @@ void        build_list(int nsyms, int symoff, int stroff, char *ptr)
         i++;
     }
     ft_lstsort(objects, comp_alpha, 0);
-    print_list(objects);
+    print_list(objects, obj);
 }
 
-void        build_list_32(int nsyms, int symoff, int stroff, char *ptr)
+void        build_list_32(struct symtab_command *sym, char *ptr, int obj)
 {
-    int                 i;
+    uint32_t            i;
     struct nlist        *arr;
     char                *s_table;
     t_list              *objects;
     t_nm_basic          *object;
 
     i = 0;
-    s_table = (void *)ptr + stroff;
-    arr = (void *)ptr + symoff;
+    s_table = (void *)ptr + sym->stroff;
+    arr = (void *)ptr + sym->symoff;
     objects = (t_list *)malloc(sizeof(t_list));
     objects = NULL;
-    while (i < nsyms)
+    while (i < sym->nsyms)
     {
         object = (t_nm_basic *)malloc(sizeof(t_nm_basic));
         object->name = ft_strdup(s_table + arr[i].n_un.n_strx);
@@ -152,5 +182,5 @@ void        build_list_32(int nsyms, int symoff, int stroff, char *ptr)
         i++;
     }
     ft_lstsort(objects, comp_alpha, 0);
-    print_list_32(objects);
+    print_list_32(objects, obj);
 }
