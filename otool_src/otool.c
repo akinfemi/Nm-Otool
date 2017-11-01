@@ -37,7 +37,7 @@ int             main(int ac, char **ag)
     i = 1;
     while (i < ac)
     {
-        if ((fd = open(ag[1], O_RDONLY)) < 0)
+        if ((fd = open(ag[i], O_RDONLY)) < 0)
         {
             ft_putstr_fd("Open Error\n", 2);
             return (EXIT_FAILURE);
@@ -52,7 +52,7 @@ int             main(int ac, char **ag)
             ft_putstr_fd("mmap error\n", 2);
             return (EXIT_FAILURE);
         }
-        ft_printf("%s:\n", ag[1]);
+        ft_printf("%s:\n", ag[i]);
         ft_otool(ptr);
         if (munmap(ptr, buf.st_size) < 0)
         {

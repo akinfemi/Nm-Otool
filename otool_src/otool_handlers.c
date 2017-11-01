@@ -13,7 +13,7 @@ void        print_res(struct section_64 *sect, char *ptr)
         res = ft_itoa_base_trim(ptr[i], 16, 2);
         if (i == 0 || i % 16 == 0)
         {
-            ft_printf("%016llx \t", addr);
+            ft_printf("%016llx\t", addr);
             addr+=16;
         }
         ft_printf("%s ", res);
@@ -22,7 +22,8 @@ void        print_res(struct section_64 *sect, char *ptr)
             ft_putchar('\n');
         i++;
     }
-    ft_putchar('\n');
+    if (i % 16 != 0)
+        ft_putchar('\n');
 }
 void        print_res_32(struct section *sect, char *ptr)
 {
@@ -37,7 +38,7 @@ void        print_res_32(struct section *sect, char *ptr)
         res = ft_itoa_base_trim(ptr[i], 16, 2);
         if (i == 0 || i % 16 == 0)
         {
-            ft_printf("%08llx \t", addr);
+            ft_printf("%08llx\t", addr);
             addr+=16;
         }
         ft_printf("%s ", res);
@@ -46,7 +47,8 @@ void        print_res_32(struct section *sect, char *ptr)
             ft_putchar('\n');
         i++;
     }
-    ft_putchar('\n');
+    if (i % 16 != 0)
+        ft_putchar('\n');
 }
 void        get_text_64(struct segment_command_64 *seg, struct mach_header_64 *header)
 {
