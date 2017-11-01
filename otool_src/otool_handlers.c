@@ -51,40 +51,46 @@ void        print_res_32(struct section *sect, char *ptr)
 void        get_text_64(struct segment_command_64 *seg, struct mach_header_64 *header)
 {
     struct section_64   *sect;
+    struct section_64   *temp;
     uint32_t            i;
     
     sect = (void *)seg + sizeof(struct segment_command_64);
     i = 0;
+    temp = sect;
     while (i < seg->cmdsize)
     {
-        if (ft_strcmp(seg->segname, "__TEXT") == 0)
+        if (!ft_strcmp(seg->segname, "__TEXT") || !ft_strcmp(temp->sectname, "__text"))
         {
             sect = (void *)seg + sizeof(struct segment_command_64);
-            ft_printf("Contents of (%s,%s) section\n", seg->segname, sect->sectname);
+            ft_printf("Contents of (%s,%s) section\n", "__TEXT", sect->sectname);
             print_res(sect, (void *)header + sect->offset);
         }
         i++;
         seg = (void *)seg + sizeof(struct segment_command_64);
+        temp = (void *)seg + sizeof(struct segment_command_64);
     }
 }
 
 void        get_text_32(struct segment_command *seg, struct mach_header *header)
 {
     struct section      *sect;
+    struct section      *temp;
     uint32_t            i;
 
     sect = (void *)seg + sizeof(struct segment_command);
+    temp = sect;
     i = 0;
     while (i < seg->cmdsize)
     {
-        if (ft_strcmp(seg->segname, "__TEXT") == 0)
+        if (!ft_strcmp(seg->segname, "__TEXT") || !ft_strcmp(temp->sectname, "__text"))
         {
             sect = (void *)seg + sizeof(struct segment_command);
-            ft_printf("Contents of (%s,%s) section\n", seg->segname, sect->sectname);
+            ft_printf("Contents of (%s,%s) section\n", "__TEXT", sect->sectname);
             print_res_32(sect, (void *)header + sect->offset);
         }
         i++;
         seg = (void *)seg + sizeof(struct segment_command);
+        temp = (void *)seg + sizeof(struct segment_command_64);
     }
 }
 
