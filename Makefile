@@ -5,7 +5,7 @@ CFLAGS := -Wall -Wextra -g -Werror -I includes/
 
 LIB := lib/lib.a
 
-NM_FILES := nm.c handlers.c comp_func.c util.c
+NM_FILES := nm.c handlers.c comp_func.c util.c build_list.c parse_list.c
 
 OT_FILES := otool.c otool_handlers.c ft_itoa_base_trim.c
 

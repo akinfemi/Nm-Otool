@@ -74,5 +74,29 @@ void        handle_fat32(char *ptr)
         }
         i++;
     }
-    ft_nm(ptr + SWAP32(offset), "\0");
+    ft_nm(ptr + SWAP32(offset), "\0", 1);
+}
+
+void        handle_lib(char *ptr, char *lib_name)
+{
+    struct ar_hdr       *ar;
+    struct ranlib       *ran;
+    char                *temp;
+    int                 i;
+    int                 l_size;
+    t_list              *ar_list;
+
+    ar = (void *)ptr + SARMAG;
+    i = 0;
+    l_size = ft_atoi(ft_strchr(ar->ar_name, '/')+1);
+    temp = (void *)ptr + sizeof(*ar) + SARMAG + l_size;
+    ran = (void *)ptr + sizeof(*ar) + SARMAG + l_size + 4;
+    l_size = *(int *)temp/sizeof(*ran);
+    ar_list = NULL;
+    while (i < l_size)
+    {
+        ft_lstadd(&ar_list, make_list(ran[i], lib_name));
+        i++;
+    }
+    parse_list(ar_list, ptr);
 }

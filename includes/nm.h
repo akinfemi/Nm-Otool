@@ -10,7 +10,16 @@
 #include <mach-o/loader.h>
 #include <mach-o/nlist.h>
 #include <mach-o/fat.h>
+#include <ar.h>
+#include <ranlib.h>
 #define SWAP32(x) ((((x) & 0xff000000) >> 24) | (((x) & 0xff0000) >> 8) | (((x) & 0xff00) << 8) | (((x) & 0xff) << 24))
+
+typedef struct          s_offset
+{
+    char                *name;
+    off_t               offset;
+    off_t               ran_strx;
+}                       t_offset;
 
 typedef struct          s_type
 {
@@ -29,8 +38,7 @@ typedef struct          s_nm_basic
     unsigned char       sect;
 }                       t_nm_basic;
 
-// void                    ft_nm(char *ptr);
-void                    ft_nm(char *ptr, char *name);
+void                    ft_nm(char *ptr, char *name, int args);
 void                    handle_64(char *ptr);
 int				        comp_alpha(void *p1, void *p2, int reverse);
 void                    handle_fat32(char *ptr);
@@ -41,5 +49,8 @@ void                    set_type(char *n_type, t_type *type);
 void                    handle_32(char *ptr);
 void                    print_list_32(t_list *list);
 void                    build_list_32(int nsyms, int symoff, int stroff, char *ptr);
-
+void                    handle_lib(char *ptr, char *name);
+t_offset                *new_off_t_node(struct ranlib ran, char *name);
+t_list                  *make_list(struct ranlib ran, char *name);
+void                    parse_list(t_list *ar_list, char *ptr);
 #endif

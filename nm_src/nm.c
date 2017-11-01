@@ -1,25 +1,29 @@
 #include "../includes/nm.h"
 
-void            ft_nm(char *ptr, char *name)
+void            ft_nm(char *ptr, char *name, int args)
 {
     unsigned int     mag_no;
 
     mag_no = *(int *)ptr;
     if (mag_no == MH_MAGIC_64)
     {
-        if (ft_strlen(name) > 0)
+        if (args > 1)
             ft_printf("\n%s:\n", name);
         handle_64(ptr);
     }
     else if (mag_no == MH_MAGIC)
     {
-        if (ft_strlen(name) > 0)
+        if (args > 1)
             ft_printf("\n%s:\n", name);
         handle_32(ptr);
     }
     else if (mag_no == FAT_CIGAM)
     {
         handle_fat32(ptr);
+    }
+    else if (ft_strncmp(ptr, ARMAG, SARMAG) == 0)
+    {
+        handle_lib(ptr, name);
     }
     else {
         ft_printf("Magic Number %d currently not handled. %d\n", mag_no, MH_MAGIC);
@@ -57,7 +61,7 @@ int             main(int ac, char **ag)
             return (EXIT_FAILURE);
         }
         // ft_nm(ptr);
-        ft_nm(ptr, ac > 2 ? ag[i]: "\0");
+        ft_nm(ptr, ag[i], ac - 1);
         if (munmap(ptr, buf.st_size) < 0)
         {
             ft_putstr_fd("munmap error\n", 2);
