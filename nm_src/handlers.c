@@ -98,5 +98,5 @@ void        handle_lib(char *ptr, char *lib_name)
         ft_lstadd(&ar_list, make_list(ran[i], lib_name));
         i++;
     }
-    parse_list(ar_list, ptr, lib_name);
+    parse_list(ar_list, ptr, lib_name, l_size);
 }

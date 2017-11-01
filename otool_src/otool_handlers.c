@@ -1,5 +1,5 @@
 #include "../includes/otool.h"
-
+#include <stdio.h>
 void        print_res(struct section_64 *sect, char *ptr)
 {
     uint32_t    i;
@@ -52,7 +52,7 @@ void        get_text_64(struct segment_command_64 *seg, struct mach_header_64 *h
 {
     struct section_64   *sect;
     uint32_t            i;
-
+    
     sect = (void *)seg + sizeof(struct segment_command_64);
     i = 0;
     while (i < seg->cmdsize)
