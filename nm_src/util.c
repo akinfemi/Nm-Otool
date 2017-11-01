@@ -31,11 +31,16 @@ char        get_type_o(t_nm_basic *object)
     }
     if (type.n_stab == 96 )
     {
-        if (type.n_type == 12 || type.n_type == 4)
+        if (object->value != 0)
         {
             return ('t');
         }
         return ('T');
+    }
+    if (type.n_ext == 0 && type.n_type == 0 && type.n_pext == 0 && type.n_stab == 0)
+    {
+        if (object->sect == 1 && object->value == 0)
+            return ('T');
     }
     return ('\0');
 }
