@@ -88,9 +88,9 @@ void        handle_lib(char *ptr, char *lib_name)
 
     ar = (void *)ptr + SARMAG;
     i = 0;
-    l_size = ft_atoi(ft_strchr(ar->ar_name, '/')+1);
+    l_size = ft_atoi(ft_strchr(ar->ar_name, '/') + 1);
     temp = (void *)ptr + sizeof(*ar) + SARMAG + l_size;
-    ran = (void *)ptr + sizeof(*ar) + SARMAG + l_size + 4;
+    ran = (void *)ptr + sizeof(*ar) + SARMAG + l_size;
     l_size = *(int *)temp/sizeof(*ran);
     ar_list = NULL;
     while (i < l_size)
@@ -98,5 +98,5 @@ void        handle_lib(char *ptr, char *lib_name)
         ft_lstadd(&ar_list, make_list(ran[i], lib_name));
         i++;
     }
-    parse_list(ar_list, ptr, lib_name, l_size);
+    parse_list(ar_list, ptr, lib_name);
 }

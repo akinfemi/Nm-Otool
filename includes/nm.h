@@ -53,5 +53,5 @@ void                    build_list_32(struct symtab_command *s, char *ptr, int o
 void                    handle_lib(char *ptr, char *name);
 t_offset                *new_off_t_node(struct ranlib ran, char *name);
 t_list                  *make_list(struct ranlib ran, char *name);
-void                    parse_list(t_list *ar_list, char *ptr, char *lib_name, int l);
+void                    parse_list(t_list *ar_list, char *ptr, char *lib_name);
 #endif

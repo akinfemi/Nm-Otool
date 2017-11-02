@@ -1,5 +1,5 @@
 #include "../includes/otool.h"
-#include <stdio.h>
+
 void        print_res(struct section_64 *sect, char *ptr)
 {
     uint32_t    i;
