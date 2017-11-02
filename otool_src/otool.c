@@ -1,21 +1,33 @@
 #include "otool.h"
-
-void            ft_otool(char *ptr)
+#include <stdio.h>
+void            ft_otool(char *ptr, char *name)
 {
     unsigned int     mag_no;
     
     mag_no = *(int *)ptr;
     if (mag_no == MH_MAGIC_64)
     {
+        if (ft_strlen(name) > 0)
+            ft_printf("%s:\n", name);
         otool_64(ptr);
     }
     else if (mag_no == MH_MAGIC)
     {
+        if (ft_strlen(name) > 0)
+            ft_printf("%s:\n", name);
         otool_32(ptr);
     }
     else if (mag_no == FAT_CIGAM)
     {
+        if (ft_strlen(name) > 0)
+            ft_printf("%s:\n", name);
         otool_fat32(ptr);
+    }
+    else if (ft_strncmp(ptr, ARMAG, SARMAG) == 0)
+    {
+        if (ft_strlen(name) > 0)
+            ft_printf("Archive : %s:\n", name);
+        handle_lib(ptr, name);
     }
     else {
         ft_printf("Magic Number %d currently not handled.\n", mag_no);
@@ -52,8 +64,7 @@ int             main(int ac, char **ag)
             ft_putstr_fd("mmap error\n", 2);
             return (EXIT_FAILURE);
         }
-        ft_printf("%s:\n", ag[i]);
-        ft_otool(ptr);
+        ft_otool(ptr, ag[i]);
         if (munmap(ptr, buf.st_size) < 0)
         {
             ft_putstr_fd("munmap error\n", 2);
