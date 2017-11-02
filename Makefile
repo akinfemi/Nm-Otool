@@ -7,7 +7,8 @@ LIB := lib/lib.a
 
 NM_FILES := nm.c handlers.c comp_func.c util.c ar.c
 
-OT_FILES := otool.c otool_handlers.c ft_itoa_base_trim.c util.c
+OT_FILES := otool.c otool_handlers.c otool_handlers2.c\
+			ft_itoa_base_trim.c util.c
 
 .PHONY = all fclean clean re
 
