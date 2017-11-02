@@ -19,6 +19,7 @@ typedef struct          s_offset
     char                *name;
     uint32_t            offset;
     uint32_t            ran_strx;
+    unsigned long long  make_time;
 }                       t_offset;
 
 typedef struct          s_type
@@ -51,7 +52,8 @@ void                    handle_32(char *ptr,int o);
 void                    print_list_32(t_list *list, int o);
 void                    build_list_32(struct symtab_command *s, char *ptr, int obj);
 void                    handle_lib(char *ptr, char *name);
-t_offset                *new_off_t_node(struct ranlib ran, char *name);
-t_list                  *make_list(struct ranlib ran, char *name);
+t_offset                *new_off_t_node(struct ranlib ran);
+t_list                  *make_list(struct ranlib ran, char *ptr);
 void                    parse_list(t_list *ar_list, char *ptr, char *lib_name);
+int                     comp_alpha_two(void *p1, void *p2, int reverse);
 #endif

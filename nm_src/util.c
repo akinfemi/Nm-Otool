@@ -31,7 +31,7 @@ char        get_type_o(t_nm_basic *object)
     }
     if (type.n_stab == 96 )
     {
-        if (object->value != 0)
+        if (object->value != 0 && type.n_pext == 2)
         {
             return ('t');
         }
