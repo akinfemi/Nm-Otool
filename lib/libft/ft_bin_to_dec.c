@@ -6,24 +6,24 @@
 /*   By: aakin-al <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/01 18:07:35 by aakin-al          #+#    #+#             */
-/*   Updated: 2017/09/01 18:07:37 by aakin-al         ###   ########.fr       */
+/*   Updated: 2017/11/02 23:10:52 by aakin-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int     ft_bin_to_dec(unsigned int num)
+int			ft_bin_to_dec(unsigned int num)
 {
-    int res;
-    int i;
+	int		res;
+	int		i;
 
-    res = 0;
-    i = 0;
-    while(num != 0)
-    {
-        res += num % 10 * ft_pow(2, i);
-        num /= 10;
-        i++;
-    }
-    return (res);
+	res = 0;
+	i = 0;
+	while (num != 0)
+	{
+		res += num % 10 * ft_pow(2, i);
+		num /= 10;
+		i++;
+	}
+	return (res);
 }

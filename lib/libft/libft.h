@@ -6,7 +6,7 @@
 /*   By: aakin-al <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 12:46:58 by aakin-al          #+#    #+#             */
-/*   Updated: 2017/09/01 14:27:37 by aakin-al         ###   ########.fr       */
+/*   Updated: 2017/11/02 23:09:16 by aakin-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ char				*ft_itoa_upper_base(uintmax_t value, int base);
 char				*ft_imaxtoa(uintmax_t nb);
 int					ft_bin_to_dec(unsigned int num);
 int					ft_pow(int num, int power);
-size_t					ft_abs(int num);
+size_t				ft_abs(int num);
 int					ft_isnum(char *num);
-intmax_t				ft_atomax(const char *nptr);
+intmax_t			ft_atomax(const char *nptr);
 int					ft_sqrt(size_t num);
-void				ft_lstsort(t_list *start, int (*f)(void *, void *, int), int reverse_cmp);
+void				ft_lstsort(t_list *s, int (*f)(void *, void *, int), int r);
 #endif

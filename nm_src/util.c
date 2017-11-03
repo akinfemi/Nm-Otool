@@ -6,7 +6,7 @@
 /*   By: aakin-al <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 13:11:07 by aakin-al          #+#    #+#             */
-/*   Updated: 2017/11/02 13:16:53 by aakin-al         ###   ########.fr       */
+/*   Updated: 2017/11/02 22:36:54 by aakin-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void        print_list(t_list *list, int obj)
 			tp = get_type_o(objects);
 		else
 			tp = get_type(objects);
-		ft_printf("Desc: %hd Sect: %d Ext: %d Type: %d Pext: %d Stab: %d Name: %s\n",  objects->desc, objects->sect, objects->type.n_ext, objects->type.n_type, objects->type.n_pext, objects->type.n_stab, objects->name);
 		if (ft_strlen(objects->name) > 0 && tp != '\0')
 		{
 			if (tp != 'U')
@@ -133,7 +132,6 @@ void        print_list_32(t_list *list, int obj)
 			tp = get_type_o(objects);
 		else
 			tp = get_type(objects);
-		// ft_printf("Desc: %hd Sect: %d Ext: %d Type: %d Pext: %d Stab: %d Name: %s\n",  objects->desc, objects->sect, objects->type.n_ext, objects->type.n_type, objects->type.n_pext, objects->type.n_stab, objects->name);
 		if (ft_strlen(objects->name) > 0 && tp != '\0')
 		{
 			if (objects->value != 0)
