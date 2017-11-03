@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   otool.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aakin-al <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/02 13:11:07 by aakin-al          #+#    #+#             */
+/*   Updated: 2017/11/02 13:16:53 by aakin-al         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #ifndef OTOOL_H
 #define OTOOL_H
 
@@ -32,5 +45,8 @@ int				comp_alpha_two(void *p1, void *p2, int reverse);
 t_list          *make_list(struct ranlib ran, char *ptr);
 t_offset        *new_off_t_node(struct ranlib ran);
 void            parse_list(t_list *ar_list, char *ptr, char *lib_name);
-
+void			get_text_64(struct segment_command_64 *seg,
+    struct mach_header_64 *header);
+void			get_text_32(struct segment_command *seg,
+	struct mach_header *header);
 #endif

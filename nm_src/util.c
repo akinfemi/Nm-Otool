@@ -66,12 +66,18 @@ char        get_type(t_nm_basic *object)
 				return ('D');
 			return ('T');
 		}
+		if (type.n_ext == 1 && type.n_type == 8 && object->sect == 1)
+			return ('t');
+		if (object->sect == 1 && type.n_type == 14 && type.n_ext == 0)
+			return ('T');
 	}
 	if (type.n_ext == 0 && type.n_type == 0 && type.n_pext == 0 && type.n_stab == 0)
 	{
 		if (object->desc >= 256)
 			return ('U');
 	}
+	if (object->sect == 1 && type.n_ext == 1 && type.n_type == 2 && type.n_stab == 64)
+		return ('T');
 	return ('\0');
 }
 
