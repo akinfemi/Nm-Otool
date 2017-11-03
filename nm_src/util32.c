@@ -56,7 +56,7 @@ void		print_list_32(t_list *list, int obj)
 			tp = get_type(objects);
 		if (ft_strlen(objects->name) > 0 && tp != '\0')
 		{
-			if (objects->value != 0)
+			if (tp != 'U')
 				ft_printf("%08llx %c %s\n", objects->value, tp, objects->name);
 			else
 				ft_printf("%8s %c %s\n", "", tp, objects->name);

@@ -43,7 +43,8 @@ char			get_type_o(t_nm_basic *object)
 	}
 	if (type.n_stab == 96)
 	{
-		if (object->value != 0 && type.n_pext == 2)
+		if ((object->value != 0 && type.n_pext == 2) ||
+			(type.n_type == 12 && type.n_ext == 1))
 			return ('t');
 		if (object->sect == 2)
 			return ('D');
@@ -60,7 +61,7 @@ static char		get_type_one(t_nm_basic *object)
 	if ((type.n_ext == 0 && type.n_type == 8) ||
 			(type.n_ext == 1 && type.n_type == 4))
 	{
-		if (object->sect == 9 || object->sect == 8)
+		if (object->sect == 9 || object->sect == 8 || object->sect == 11)
 			return ('D');
 		return ('T');
 	}

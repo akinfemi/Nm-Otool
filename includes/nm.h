@@ -58,6 +58,7 @@ int						comp_alpha(void *p1, void *p2, int reverse);
 void					handle_fat32(char *ptr);
 void					print_list(t_list *list, int obj);
 char					get_type(t_nm_basic *object);
+char					get_type_o(t_nm_basic *object);
 void					build_list(struct symtab_command *s, char *p, int o);
 void					set_type(char *n_type, t_type *type);
 void					handle_32(char *ptr, int o);
