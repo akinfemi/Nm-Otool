@@ -66,10 +66,14 @@ char        get_type(t_nm_basic *object)
 				return ('D');
 			return ('T');
 		}
-		if (type.n_ext == 1 && type.n_type == 8 && object->sect == 1)
+		if ((type.n_ext == 1 && type.n_type == 8 && object->sect == 1) || (object->sect == 1 && type.n_type == 4))
 			return ('t');
 		if (object->sect == 1 && type.n_type == 14 && type.n_ext == 0)
 			return ('T');
+		if ((object->sect == 4 || object->sect == 14 || object->sect == 6) && type.n_type == 4)
+			return ('s');
+		if (object->sect == 16 && type.n_type == 4)
+			return ('b');
 	}
 	if (type.n_ext == 0 && type.n_type == 0 && type.n_pext == 0 && type.n_stab == 0)
 	{
@@ -78,6 +82,14 @@ char        get_type(t_nm_basic *object)
 	}
 	if (object->sect == 1 && type.n_ext == 1 && type.n_type == 2 && type.n_stab == 64)
 		return ('T');
+	if (object->sect == 15 && type.n_ext == 0 && type.n_type == 4 && type.n_stab == 96)
+		return ('d');
+	if (type.n_ext == 0 && type.n_type == 10 && type.n_stab == 64)
+	{
+		if (object->sect == 1)
+			return ('T');
+		return ('S');
+	}
 	return ('\0');
 }
 
@@ -95,7 +107,7 @@ void        print_list(t_list *list, int obj)
 			tp = get_type_o(objects);
 		else
 			tp = get_type(objects);
-		// ft_printf("Desc: %hd Sect: %d Ext: %d Type: %d Pext: %d Stab: %d Name: %s\n",  objects->desc, objects->sect, objects->type.n_ext, objects->type.n_type, objects->type.n_pext, objects->type.n_stab, objects->name);
+		ft_printf("Desc: %hd Sect: %d Ext: %d Type: %d Pext: %d Stab: %d Name: %s\n",  objects->desc, objects->sect, objects->type.n_ext, objects->type.n_type, objects->type.n_pext, objects->type.n_stab, objects->name);
 		if (ft_strlen(objects->name) > 0 && tp != '\0')
 		{
 			if (tp != 'U')

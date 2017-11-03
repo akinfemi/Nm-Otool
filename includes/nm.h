@@ -54,7 +54,7 @@ typedef struct			s_nm_basic
 
 void				ft_nm(char *ptr, char *name, int args);
 void				handle_64(char *ptr, int o);
-int				comp_alpha(void *p1, void *p2, int reverse);
+int					comp_alpha(void *p1, void *p2, int reverse);
 void				handle_fat32(char *ptr);
 void				print_list(t_list *list, int obj);
 char				get_type(t_nm_basic *object);
@@ -67,6 +67,6 @@ void				handle_lib(char *ptr, char *name);
 t_offset			*new_off_t_node(struct ranlib ran);
 t_list				*make_list(struct ranlib ran, char *ptr);
 void				parse_list(t_list *ar_list, char *ptr, char *lib_name);
-int				comp_alpha_two(void *p1, void *p2, int reverse);
+int					comp_alpha_two(void *p1, void *p2, int reverse);
 
 #endif
