@@ -72,19 +72,19 @@ void		handle_fat32(char *ptr)
 
 	i = 0;
 	header = (struct fat_header *)ptr;
-	nfat_archs = SWAP32(header->nfat_arch);
+	nfat_archs = swap32(header->nfat_arch);
 	f_arch = (void *)ptr + sizeof(f_arch);
 	offset = 0;
 	while (i < nfat_archs)
 	{
-		if (SWAP32(f_arch[i].cputype) == CPU_TYPE_X86_64)
+		if (swap32(f_arch[i].cputype) == CPU_TYPE_X86_64)
 		{
 			offset = f_arch[i].offset;
 			break ;
 		}
 		i++;
 	}
-	ft_nm(ptr + SWAP32(offset), "\0", 1);
+	ft_nm(ptr + swap32(offset), "\0", 1);
 }
 
 void		handle_lib(char *ptr, char *lib_name)
@@ -108,4 +108,5 @@ void		handle_lib(char *ptr, char *lib_name)
 	}
 	ft_lstsort(ar_list, comp_alpha_two, 0);
 	parse_list(ar_list, ptr, lib_name);
+	ft_lstdel(&ar_list, offset_del);
 }

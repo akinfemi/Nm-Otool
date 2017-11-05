@@ -24,7 +24,6 @@
 # include <mach-o/fat.h>
 # include <ar.h>
 # include <ranlib.h>
-# define SWAP32(x) ((((x) & 0xff000000) >> 24) | (((x) & 0xff0000) >> 8) | (((x) & 0xff00) << 8) | (((x) & 0xff) << 24))
 
 typedef struct			s_offset
 {
@@ -48,4 +47,8 @@ void					get_text_64(struct segment_command_64 *seg,
 		struct mach_header_64 *header);
 void					get_text_32(struct segment_command *seg,
 		struct mach_header *header);
+uint32_t				swap32(uint32_t x);
+void					offset_del(void *off_struct, size_t size);
+void					nm_del(void *nm, size_t size);
+void					type_del(void *type, size_t sz);
 #endif

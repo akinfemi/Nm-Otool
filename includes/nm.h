@@ -24,7 +24,6 @@
 # include <mach-o/fat.h>
 # include <ar.h>
 # include <ranlib.h>
-# define SWAP32(x) ((((x) & 0xff000000) >> 24) | (((x) & 0xff0000) >> 8) | (((x) & 0xff00) << 8) | (((x) & 0xff) << 24))
 
 typedef struct			s_offset
 {
@@ -69,5 +68,8 @@ t_offset				*new_off_t_node(struct ranlib ran);
 t_list					*make_list(struct ranlib ran, char *ptr);
 void					parse_list(t_list *ar_list, char *ptr, char *lib_name);
 int						comp_alpha_two(void *p1, void *p2, int reverse);
-
+uint32_t				swap32(uint32_t x);
+void					offset_del(void *off_struct, size_t size);
+void					nm_del(void *nm, size_t size);
+void					type_del(void *type, size_t sz);
 #endif

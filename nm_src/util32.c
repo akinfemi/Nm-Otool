@@ -38,6 +38,7 @@ void		build_list_32(struct symtab_command *sym, char *ptr, int obj)
 	}
 	ft_lstsort(objects, comp_alpha, 0);
 	print_list_32(objects, obj);
+	ft_lstdel(&objects, nm_del);
 }
 
 void		print_list_32(t_list *list, int obj)
@@ -98,6 +99,7 @@ void		build_list(struct symtab_command *sym, char *ptr, int obj)
 	}
 	ft_lstsort(objects, comp_alpha, 0);
 	print_list(objects, obj);
+	ft_lstdel(&objects, nm_del);
 }
 
 void		print_list(t_list *list, int obj)
